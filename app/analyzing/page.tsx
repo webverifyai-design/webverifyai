@@ -1,11 +1,12 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import LoadingInvestigation from '@/components/LoadingInvestigation';
 import { scanWebsite } from '@/lib/api';
 
-export default function AnalyzingPage() {
+function AnalyzingContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const url = searchParams.get('url');
@@ -45,4 +46,16 @@ export default function AnalyzingPage() {
   }, [url, router]);
 
   return <LoadingInvestigation />;
+}
+
+export default function AnalyzingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-slate-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    }>
+      <AnalyzingContent />
+    </Suspense>
+  );
 }

@@ -16,22 +16,8 @@ const mockRecentScans: RecentScan[] = [
     id: '1',
     url: 'example.com',
     trustScore: 72,
-    riskLevel: 'Medium',
+    riskLevel: 'medium',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-  },
-  {
-    id: '2',
-    url: 'trustworthy-store.com',
-    trustScore: 88,
-    riskLevel: 'Low',
-    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
-  },
-  {
-    id: '3',
-    url: 'suspicious-site.net',
-    trustScore: 35,
-    riskLevel: 'High',
-    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
   },
 ];
 

@@ -1,6 +1,6 @@
 import { ScanResult } from './types';
 
-const BACKEND_URL = 'http://localhost:3001';
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
 export async function scanWebsite(url: string): Promise<ScanResult> {
   try {

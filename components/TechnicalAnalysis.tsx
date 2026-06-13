@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe, Lock, Calendar, Server, Cookie, Shield } from 'lucide-react';
+import { Globe, Lock, Calendar, Server, Cookie, Shield, AlertTriangle, Wifi, FileText } from 'lucide-react';
 import { TechnicalDetails } from '@/lib/types';
 
 interface TechnicalAnalysisProps {
@@ -10,7 +10,7 @@ interface TechnicalAnalysisProps {
 
 interface DetailCard {
   title: string;
-  items: { label: string; value: string }[];
+  items: { label: string; value: string | React.ReactNode }[];
   icon: React.ReactNode;
   color: string;
 }
@@ -18,6 +18,63 @@ interface DetailCard {
 export default function TechnicalAnalysis({
   technicalDetails,
 }: TechnicalAnalysisProps) {
+  const threatItems = [];
+
+  if (technicalDetails.threatIntelligence) {
+    if (technicalDetails.threatIntelligence.googleSafeBrowsing?.threat) {
+      threatItems.push({ label: 'Google Safe Browsing', value: '🔴 Threat Detected' });
+    } else {
+      threatItems.push({ label: 'Google Safe Browsing', value: '🟢 Clean' });
+    }
+
+    if (technicalDetails.threatIntelligence.phishTank?.threat) {
+      threatItems.push({ label: 'PhishTank', value: '🔴 Phishing Detected' });
+    } else {
+      threatItems.push({ label: 'PhishTank', value: '🟢 Clean' });
+    }
+
+    if (technicalDetails.threatIntelligence.openPhish?.threat) {
+      threatItems.push({ label: 'OpenPhish', value: '🔴 Phishing Detected' });
+    } else {
+      threatItems.push({ label: 'OpenPhish', value: '🟢 Clean' });
+    }
+
+    if (technicalDetails.threatIntelligence.urlhaus?.threat) {
+      threatItems.push({ label: 'URLhaus', value: '🔴 Malicious URL' });
+    } else {
+      threatItems.push({ label: 'URLhaus', value: '🟢 Clean' });
+    }
+  }
+
+  const dnsItems = [];
+
+  if (technicalDetails.dnsSecurityCheck) {
+    const dnssecStatus = technicalDetails.dnsSecurityCheck.dnssec?.status || 'unknown';
+    dnsItems.push({ label: 'DNSSEC', value: dnssecStatus === 'enabled' ? '🟢 Enabled' : '🔴 Disabled' });
+
+    const mxExists = technicalDetails.dnsSecurityCheck.mxRecords?.exists;
+    const mxCount = technicalDetails.dnsSecurityCheck.mxRecords?.count || 0;
+    dnsItems.push({ label: 'MX Records', value: mxExists ? `✓ ${mxCount} records` : '✗ None' });
+
+    const spfExists = technicalDetails.dnsSecurityCheck.spfRecord?.exists;
+    const spfValid = technicalDetails.dnsSecurityCheck.spfRecord?.valid;
+    dnsItems.push({ label: 'SPF Record', value: spfExists ? (spfValid ? '✓ Valid' : '✗ Invalid') : '✗ Missing' });
+
+    const tlsaExists = technicalDetails.dnsSecurityCheck.tlsaRecords?.exists;
+    dnsItems.push({ label: 'TLSA Records', value: tlsaExists ? '✓ Present' : '✗ Absent' });
+  }
+
+  const contentItems = [];
+
+  if (technicalDetails.contentAnalysis) {
+    contentItems.push({ label: 'Status Code', value: technicalDetails.contentAnalysis.statusCode || '—' });
+    contentItems.push({ label: 'Contact Info', value: technicalDetails.contentAnalysis.contactInfo ? '✓ Found' : '✗ Missing' });
+    contentItems.push({ label: 'Redirects', value: technicalDetails.contentAnalysis.redirectCount || 0 });
+    if (technicalDetails.contentAnalysis.suspiciousPatterns?.length > 0) {
+      contentItems.push({ label: 'Suspicious Patterns', value: technicalDetails.contentAnalysis.suspiciousPatterns.length });
+    }
+  }
+
   const cards: DetailCard[] = [
     {
       title: 'Server Location',
@@ -81,6 +138,24 @@ export default function TechnicalAnalysis({
       icon: <Shield className="w-5 h-5" />,
       color: 'blue',
     },
+    ...(threatItems.length > 0 ? [{
+      title: 'Threat Intelligence',
+      items: threatItems,
+      icon: <AlertTriangle className="w-5 h-5" />,
+      color: 'red',
+    }] : []),
+    ...(dnsItems.length > 0 ? [{
+      title: 'DNS Security',
+      items: dnsItems,
+      icon: <Wifi className="w-5 h-5" />,
+      color: 'indigo',
+    }] : []),
+    ...(contentItems.length > 0 ? [{
+      title: 'Content Analysis',
+      items: contentItems,
+      icon: <FileText className="w-5 h-5" />,
+      color: 'cyan',
+    }] : []),
   ];
 
   const getColorClasses = (color: string) => {
@@ -90,6 +165,9 @@ export default function TechnicalAnalysis({
       'purple': 'bg-purple-50 text-purple-600 border-purple-200',
       'orange': 'bg-orange-50 text-orange-600 border-orange-200',
       'amber': 'bg-amber-50 text-amber-600 border-amber-200',
+      'red': 'bg-red-50 text-red-600 border-red-200',
+      'indigo': 'bg-indigo-50 text-indigo-600 border-indigo-200',
+      'cyan': 'bg-cyan-50 text-cyan-600 border-cyan-200',
     };
     return colorMap[color] || 'bg-gray-50 text-gray-600 border-gray-200';
   };

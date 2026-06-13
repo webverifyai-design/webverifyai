@@ -33,6 +33,9 @@ function mapBackendResponse(data: any): ScanResult {
   const domainInfo = data.domainInfo || {};
   const sslInfo = data.sslInfo || {};
   const serverLocation = data.serverLocation || {};
+  const threatIntelligence = data.threatIntelligence || {};
+  const dnsSecurityCheck = data.dnsSecurityCheck || {};
+  const contentAnalysis = data.contentAnalysis || {};
 
   return {
     url: data.domain || '',
@@ -86,6 +89,46 @@ function mapBackendResponse(data: any): ScanResult {
         hsts: sslInfo.trusted ? 'Present' : 'Missing',
         csp: 'Partial',
         xFrameOptions: 'SAMEORIGIN',
+      },
+      threatIntelligence: {
+        googleSafeBrowsing: {
+          threat: threatIntelligence.googleSafeBrowsing?.threat || false,
+          threatType: threatIntelligence.googleSafeBrowsing?.threatType,
+        },
+        urlhaus: {
+          threat: threatIntelligence.urlhaus?.threat || false,
+        },
+        phishTank: {
+          threat: threatIntelligence.phishTank?.threat || false,
+          confidence: threatIntelligence.phishTank?.confidence,
+        },
+        openPhish: {
+          threat: threatIntelligence.openPhish?.threat || false,
+        },
+      },
+      dnsSecurityCheck: {
+        dnssec: {
+          status: dnsSecurityCheck.dnssec?.status || 'unknown',
+          signed: dnsSecurityCheck.dnssec?.signed || false,
+        },
+        mxRecords: {
+          exists: dnsSecurityCheck.mxRecords?.exists || false,
+          count: dnsSecurityCheck.mxRecords?.count || 0,
+          quality: dnsSecurityCheck.mxRecords?.quality || 'unknown',
+        },
+        spfRecord: {
+          exists: dnsSecurityCheck.spfRecord?.exists || false,
+          valid: dnsSecurityCheck.spfRecord?.valid || false,
+        },
+        tlsaRecords: {
+          exists: dnsSecurityCheck.tlsaRecords?.exists || false,
+        },
+      },
+      contentAnalysis: {
+        statusCode: contentAnalysis.statusCode || 0,
+        suspiciousPatterns: contentAnalysis.suspiciousPatterns || [],
+        contactInfo: contentAnalysis.hasContactInfo || false,
+        redirectCount: contentAnalysis.redirects || 0,
       },
     },
     timestamp: new Date(),

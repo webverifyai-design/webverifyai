@@ -40,6 +40,24 @@ export interface TechnicalDetails {
     csp?: string;
     xFrameOptions?: string;
   };
+  threatIntelligence?: {
+    googleSafeBrowsing?: { threat: boolean; threatType?: string };
+    urlhaus?: { threat: boolean };
+    phishTank?: { threat: boolean; confidence?: number };
+    openPhish?: { threat: boolean };
+  };
+  dnsSecurityCheck?: {
+    dnssec?: { status: string; signed: boolean };
+    mxRecords?: { exists: boolean; count: number; quality: string };
+    spfRecord?: { exists: boolean; valid: boolean };
+    tlsaRecords?: { exists: boolean };
+  };
+  contentAnalysis?: {
+    statusCode: number;
+    suspiciousPatterns: string[];
+    contactInfo: boolean;
+    redirectCount: number;
+  };
 }
 
 export interface ScanResult {

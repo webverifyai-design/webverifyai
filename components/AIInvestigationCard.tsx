@@ -83,6 +83,17 @@ export default function AIInvestigationCard({
 }: AIInvestigationCardProps) {
   const [showFallback, setShowFallback] = useState(false);
 
+  // Check if websitePurpose is an error message
+  const isErrorMessage = websitePurpose?.includes('Add GEMINI_API_KEY') ||
+                         websitePurpose?.includes('Enable Gemini');
+
+  // Friendly fallback messages when AI is unavailable
+  const getFallbackPurpose = () => {
+    return 'Detailed website purpose analysis will be available when AI analysis is enabled. This helps understand what the website offers and its business model.';
+  };
+
+  const displayPurpose = isErrorMessage ? getFallbackPurpose() : websitePurpose;
+
   return (
     <motion.div
       className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 border border-slate-200 shadow-lg hover:shadow-xl transition-shadow"
@@ -123,16 +134,24 @@ export default function AIInvestigationCard({
           AI Investigation Summary
         </motion.h3>
 
-        {/* ── Website Purpose Block ── ADD THIS ENTIRE BLOCK */}
-        {websitePurpose && (
+        {/* ── Website Purpose Block ── */}
+        {displayPurpose && (
           <motion.div
-            className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4"
+            className={`border-l-4 rounded-lg p-4 ${
+              isErrorMessage
+                ? 'bg-amber-50 border-amber-500'
+                : 'bg-blue-50 border-blue-500'
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.45 }}
           >
-            <p className="text-xs font-semibold text-blue-600 mb-1">🌐 What this website does</p>
-            <p className="text-sm text-gray-700 leading-relaxed">{websitePurpose}</p>
+            <p className={`text-xs font-semibold mb-1 ${
+              isErrorMessage ? 'text-amber-600' : 'text-blue-600'
+            }`}>
+              {isErrorMessage ? '💡 Website Purpose' : '🌐 What this website does'}
+            </p>
+            <p className="text-sm text-gray-700 leading-relaxed">{displayPurpose}</p>
           </motion.div>
         )}
         {/* ── End Website Purpose Block ── */}

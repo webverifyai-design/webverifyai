@@ -1,95 +1,148 @@
-export type Language = 'en' | 'hi';
+export type Language = 'en' | 'hi' | 'es' | 'pt' | 'fr';
+
+export const languages: { code: Language; name: string; label: string }[] = [
+  { code: 'en', name: 'English', label: 'EN' },
+  { code: 'hi', name: 'हिंदी', label: 'HI' },
+  { code: 'es', name: 'Español', label: 'ES' },
+  { code: 'pt', name: 'Português', label: 'PT' },
+  { code: 'fr', name: 'Français', label: 'FR' },
+];
 
 export const translations = {
   en: {
-    // Navigation
     appName: 'WebVerify AI',
     checkBeforeYouPay: 'Check before you pay',
-
-    // Home Page
     enterDomain: 'Enter domain or URL',
     analyze: 'Analyze Website',
-
-    // Results - Main Messages
     verdictSafe: '🟢 Safe to Pay',
     verdictCaution: '🟡 Proceed With Caution',
     verdictAvoid: '🔴 Avoid Prepaid Payment',
-
-    // Plain Language Explanations
+    plainLanguageHeading: '📖 In Plain Language:',
     plainLangSafe: 'This website looks safe. It has a valid SSL certificate, established domain history, and no major security threats detected.',
     plainLangCaution: 'This website has some concerns. Use caution and prefer credit card payment over direct bank transfer for buyer protection.',
     plainLangDanger: 'This website shows significant risk factors. We strongly recommend avoiding prepaid payments and contacting the seller through other verified channels.',
-
-    // Threat Intelligence
     threatDetected: 'Threat Detected',
     threatClean: 'Clean',
     noThreats: 'No threats detected in major security databases',
-
-    // DNS Security
     dnsSecure: 'DNS Security Configured',
     dnsInsecure: 'DNS Security Issues Found',
-
-    // Technical Details
     trustScore: 'Trust Score',
     riskLevel: 'Risk Level',
     lowRisk: 'Low Risk',
     mediumRisk: 'Medium Risk',
     highRisk: 'High Risk',
-
-    // Buttons
     shareOnWhatsApp: 'Share on WhatsApp',
     backToHome: 'Back to Home',
-
-    // Language Toggle
     language: 'Language',
-    english: 'English',
-    hindi: 'हिंदी',
   },
 
   hi: {
-    // Navigation
     appName: 'वेबवेरिफाई एआई',
     checkBeforeYouPay: 'भुगतान करने से पहले जांचें',
-
-    // Home Page
     enterDomain: 'डोमेन या यूआरएल दर्ज करें',
     analyze: 'वेबसाइट का विश्लेषण करें',
-
-    // Results - Main Messages
     verdictSafe: '🟢 भुगतान के लिए सुरक्षित है',
     verdictCaution: '🟡 सावधानी के साथ आगे बढ़ें',
     verdictAvoid: '🔴 प्रीपेड भुगतान से बचें',
-
-    // Plain Language Explanations
+    plainLanguageHeading: '📖 सरल भाषा में:',
     plainLangSafe: 'यह वेबसाइट सुरक्षित दिख रही है। इसके पास वैध SSL सर्टिफिकेट, स्थापित डोमेन इतिहास है और कोई बड़ा सुरक्षा खतरा नहीं मिला है।',
     plainLangCaution: 'इस वेबसाइट के कुछ सवाल हैं। सावधानी बरतें और खरीदार सुरक्षा के लिए सीधे बैंक ट्रांसफर के बजाय क्रेडिट कार्ड का उपयोग करें।',
     plainLangDanger: 'यह वेबसाइट महत्वपूर्ण जोखिम दिखा रही है। हम दृढ़ता से प्रीपेड भुगतान से बचने की सलाह देते हैं। विक्रेता से अन्य सत्यापित चैनलों के माध्यम से संपर्क करें।',
-
-    // Threat Intelligence
     threatDetected: 'खतरा पाया गया',
     threatClean: 'सुरक्षित',
     noThreats: 'प्रमुख सुरक्षा डेटाबेस में कोई खतरा नहीं मिला',
-
-    // DNS Security
     dnsSecure: 'DNS सुरक्षा कॉन्फ़िगर की गई है',
     dnsInsecure: 'DNS सुरक्षा समस्याएं मिलीं',
-
-    // Technical Details
     trustScore: 'विश्वास स्कोर',
     riskLevel: 'जोखिम स्तर',
     lowRisk: 'कम जोखिम',
     mediumRisk: 'मध्यम जोखिम',
     highRisk: 'उच्च जोखिम',
-
-    // Buttons
     shareOnWhatsApp: 'WhatsApp पर साझा करें',
     backToHome: 'होम पर वापस जाएं',
-
-    // Language Toggle
     language: 'भाषा',
-    english: 'English',
-    hindi: 'हिंदी',
-  }
+  },
+
+  es: {
+    appName: 'WebVerify IA',
+    checkBeforeYouPay: 'Comprueba antes de pagar',
+    enterDomain: 'Ingresa dominio o URL',
+    analyze: 'Analizar sitio web',
+    verdictSafe: '🟢 Seguro para pagar',
+    verdictCaution: '🟡 Procede con cuidado',
+    verdictAvoid: '🔴 Evita pago prepago',
+    plainLanguageHeading: '📖 En lenguaje simple:',
+    plainLangSafe: 'Este sitio web parece seguro. Tiene un certificado SSL válido, historial de dominio establecido y sin amenazas de seguridad importantes detectadas.',
+    plainLangCaution: 'Este sitio web tiene algunas preocupaciones. Procede con cuidado y prefiere pago con tarjeta de crédito sobre transferencia bancaria directa.',
+    plainLangDanger: 'Este sitio web muestra factores de riesgo significativos. Recomendamos evitar pagos prepago y contactar al vendedor a través de otros canales verificados.',
+    threatDetected: 'Amenaza detectada',
+    threatClean: 'Limpio',
+    noThreats: 'Sin amenazas detectadas en bases de datos de seguridad principales',
+    dnsSecure: 'Seguridad DNS configurada',
+    dnsInsecure: 'Se encontraron problemas de seguridad DNS',
+    trustScore: 'Puntuación de confianza',
+    riskLevel: 'Nivel de riesgo',
+    lowRisk: 'Riesgo bajo',
+    mediumRisk: 'Riesgo medio',
+    highRisk: 'Riesgo alto',
+    shareOnWhatsApp: 'Compartir en WhatsApp',
+    backToHome: 'Volver a inicio',
+    language: 'Idioma',
+  },
+
+  pt: {
+    appName: 'WebVerify IA',
+    checkBeforeYouPay: 'Verifique antes de pagar',
+    enterDomain: 'Digite domínio ou URL',
+    analyze: 'Analisar site',
+    verdictSafe: '🟢 Seguro para pagamento',
+    verdictCaution: '🟡 Prossiga com cuidado',
+    verdictAvoid: '🔴 Evite pagamento pré-pago',
+    plainLanguageHeading: '📖 Em linguagem simples:',
+    plainLangSafe: 'Este site parece seguro. Possui certificado SSL válido, histórico de domínio estabelecido e nenhuma ameaça de segurança importante detectada.',
+    plainLangCaution: 'Este site tem algumas preocupações. Tenha cuidado e prefira pagamento com cartão de crédito em vez de transferência bancária direta.',
+    plainLangDanger: 'Este site apresenta fatores de risco significativos. Recomendamos evitar pagamentos pré-pagos e entrar em contato com o vendedor através de outros canais verificados.',
+    threatDetected: 'Ameaça detectada',
+    threatClean: 'Limpo',
+    noThreats: 'Nenhuma ameaça detectada nas principais bases de dados de segurança',
+    dnsSecure: 'Segurança DNS configurada',
+    dnsInsecure: 'Problemas de segurança DNS encontrados',
+    trustScore: 'Pontuação de confiança',
+    riskLevel: 'Nível de risco',
+    lowRisk: 'Risco baixo',
+    mediumRisk: 'Risco médio',
+    highRisk: 'Risco alto',
+    shareOnWhatsApp: 'Compartilhar no WhatsApp',
+    backToHome: 'Voltar para casa',
+    language: 'Idioma',
+  },
+
+  fr: {
+    appName: 'WebVerify IA',
+    checkBeforeYouPay: 'Vérifiez avant de payer',
+    enterDomain: 'Entrez un domaine ou une URL',
+    analyze: 'Analyser le site web',
+    verdictSafe: '🟢 Sûr pour payer',
+    verdictCaution: '🟡 Procédez avec prudence',
+    verdictAvoid: '🔴 Éviter le paiement prépayé',
+    plainLanguageHeading: '📖 En langage simple:',
+    plainLangSafe: 'Ce site Web semble sûr. Il possède un certificat SSL valide, un historique de domaine établi et aucune menace de sécurité majeure détectée.',
+    plainLangCaution: 'Ce site Web a des préoccupations. Soyez prudent et préférez le paiement par carte de crédit au virement bancaire direct.',
+    plainLangDanger: 'Ce site Web présente des facteurs de risque importants. Nous recommandons d\'éviter les paiements prépayés et de contacter le vendeur via d\'autres canaux vérifiés.',
+    threatDetected: 'Menace détectée',
+    threatClean: 'Propre',
+    noThreats: 'Aucune menace détectée dans les principales bases de données de sécurité',
+    dnsSecure: 'Sécurité DNS configurée',
+    dnsInsecure: 'Problèmes de sécurité DNS trouvés',
+    trustScore: 'Score de confiance',
+    riskLevel: 'Niveau de risque',
+    lowRisk: 'Risque faible',
+    mediumRisk: 'Risque moyen',
+    highRisk: 'Risque élevé',
+    shareOnWhatsApp: 'Partager sur WhatsApp',
+    backToHome: 'Retour à l\'accueil',
+    language: 'Langue',
+  },
 };
 
 export const getTranslation = (lang: Language, key: keyof typeof translations.en): string => {

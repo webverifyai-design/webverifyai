@@ -3,8 +3,13 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Shield } from 'lucide-react';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '@/lib/languageContext';
 
 export default function Navigation() {
+  const { language } = useLanguage();
+  const tagline = language === 'hi' ? 'भुगतान करने से पहले जांचें।' : 'Check before you pay.';
+
   return (
     <motion.nav
       className="bg-white border-b border-gray-100 sticky top-0 z-50"
@@ -27,8 +32,11 @@ export default function Navigation() {
               </span>
             </div>
           </Link>
-          <div className="text-sm text-gray-600 font-medium">
-            Check before you pay.
+          <div className="flex items-center gap-6">
+            <div className="text-sm text-gray-600 font-medium">
+              {tagline}
+            </div>
+            <LanguageToggle />
           </div>
         </div>
       </div>

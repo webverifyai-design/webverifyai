@@ -14,10 +14,12 @@ import FraudPrediction from '@/components/FraudPrediction';
 import Verdict from '@/components/Verdict';
 import TrustReport from '@/components/TrustReport';
 import RecentScans from '@/components/RecentScans';
+import ShareButton from '@/components/ShareButton';
 import Footer from '@/components/Footer';
 import { ScanResult } from '@/lib/types';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import PlainLanguageMode from '@/components/PlainLanguageMode';
 
 export default function ResultsPage() {
   const params = useParams();
@@ -117,6 +119,30 @@ export default function ResultsPage() {
           <div className="mb-12">
             <Verdict verdict={scanResult.verdict} explanation={scanResult.verdictExplanation} />
           </div>
+
+          {/* Plain Language Explanation */}
+          <div className="mb-12">
+            <PlainLanguageMode
+              trustScore={scanResult.trustScore}
+              riskLevel={scanResult.riskLevel}
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="mb-12 flex flex-wrap gap-4 justify-center"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <ShareButton
+              domain={scanResult.url}
+              trustScore={scanResult.trustScore}
+              riskLevel={scanResult.riskLevel}
+              summary={scanResult.summary}
+              verdict={scanResult.verdict}
+            />
+          </motion.div>
 
           {/* Two Column Layout - Trust Score & Recommendation */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
